@@ -15,6 +15,7 @@ function writeToLocaleStorage(todos) {
 function TodoList() {
   const [todos, setTodos] = useState(readFromLocaleStorage());
   const [inputValue, setInputValue] = useState("");
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => writeToLocaleStorage(todos), [todos]);
 
@@ -41,9 +42,26 @@ function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "Active") {
+      return !todo.completed;
+    }
+    if (filter === "Complete") {
+      return todo.completed;
+    }
+    return true;
+  });
+
   return (
     <div className="todo-list">
       <h3 className="todo-list-empty">Nombre de tache(s) : {todos.length}</h3>
+
+      <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+        <option value="All">All</option>
+        <option value="Active">Active</option>
+        <option value="Complete">Complete</option>
+      </select>
+
       <form className="todo-list-form" onSubmit={handleSubmit}>
         <input
           className="todo-list-input"
@@ -57,12 +75,12 @@ function TodoList() {
         </button>
       </form>
       <ul className="todo-list-items">
-        {todos.length === 0 ? (
+        {filteredTodos.length === 0 ? (
           <li className="todo-list-empty">
             No todos yet! Add one to get started.
           </li>
         ) : (
-          todos.map((todo) => (
+          filteredTodos.map((todo) => (
             <TodoItem
               key={todo.id}
               todo={todo}
