@@ -51,6 +51,11 @@ function TodoList() {
     }
     return true;
   });
+  const clearComplete = () => {
+    const todosWithoutComplete = todos.filter((t) => !t.completed);
+    setTodos(todosWithoutComplete);
+    localStorage.setItem("todos", JSON.stringify(todosWithoutComplete));
+  };
 
   return (
     <div className="todo-list">
@@ -61,6 +66,9 @@ function TodoList() {
         <option value="Active">Active</option>
         <option value="Complete">Complete</option>
       </select>
+      
+
+      <button onClick={clearComplete}>Clear Completed</button>
 
       <form className="todo-list-form" onSubmit={handleSubmit}>
         <input
