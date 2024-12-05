@@ -41,9 +41,20 @@ function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const clearComplete = () => {
+    const todosWithoutComplete = todos.filter((t) => !t.complete);
+
+    setTodos(todosWithoutComplete);
+    localStorage.setItem("todos", JSON.stringify(todosWithoutComplete));
+  };
+
   return (
     <div className="todo-list">
       <h3 className="todo-list-empty">Nombre de tache(s) : {todos.length}</h3>
+
+
+      <button onClick={clearComplete}>Clear Completed</button>
+
       <form className="todo-list-form" onSubmit={handleSubmit}>
         <input
           className="todo-list-input"
