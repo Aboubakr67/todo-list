@@ -42,8 +42,7 @@ function TodoList() {
   };
 
   const clearComplete = () => {
-    const todosWithoutComplete = todos.filter((t) => !t.complete);
-
+    const todosWithoutComplete = todos.filter((t) => !t.completed);
     setTodos(todosWithoutComplete);
     localStorage.setItem("todos", JSON.stringify(todosWithoutComplete));
   };
@@ -51,7 +50,7 @@ function TodoList() {
   return (
     <div className="todo-list">
       <h3 className="todo-list-empty">Nombre de tache(s) : {todos.length}</h3>
-
+      
 
       <button onClick={clearComplete}>Clear Completed</button>
 
