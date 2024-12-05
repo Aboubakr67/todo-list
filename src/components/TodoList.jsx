@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import TodoItem from './TodoItem';
-import './TodoList.css';
+import React, { useEffect, useState } from "react";
+import TodoItem from "./TodoItem";
+import "./TodoList.css";
 
 function readFromLocaleStorage() {
-  const todos = localStorage.getItem('todos');
-  console.log(todos)
+  const todos = localStorage.getItem("todos");
+  console.log(todos);
   return todos ? JSON.parse(todos) : [];
 }
 
 function writeToLocaleStorage(todos) {
-  localStorage.setItem('todos', JSON.stringify(todos));
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function TodoList() {
   const [todos, setTodos] = useState(readFromLocaleStorage());
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => writeToLocaleStorage(todos), [todos])
+  useEffect(() => writeToLocaleStorage(todos), [todos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.trim() !== '') {
-      setTodos([...todos, { id: Date.now(), text: inputValue, completed: false }]);
-      setInputValue('');
+    if (inputValue.trim() !== "") {
+      setTodos([
+        ...todos,
+        { id: Date.now(), text: inputValue, completed: false },
+      ]);
+      setInputValue("");
     }
   };
 
@@ -40,6 +43,7 @@ function TodoList() {
 
   return (
     <div className="todo-list">
+      <h3 className="todo-list-empty">Nombre de tache(s) : {todos.length}</h3>
       <form className="todo-list-form" onSubmit={handleSubmit}>
         <input
           className="todo-list-input"
@@ -48,7 +52,9 @@ function TodoList() {
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="What needs to be done?"
         />
-        <button className="todo-list-submit" type="submit">Add</button>
+        <button className="todo-list-submit" type="submit">
+          Add
+        </button>
       </form>
       <ul className="todo-list-items">
         {todos.length === 0 ? (
