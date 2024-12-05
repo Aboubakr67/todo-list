@@ -1,0 +1,14 @@
+changelog:
+  file: CHANGELOG.md
+  header: |
+    # Changelog
+    Toutes les modifications notables de ce projet seront documentées dans ce fichier.
+  sections:
+    - type: feat
+      name: Features
+    - type: fix
+      name: Bug Fixes
+    - type: docs
+      name: Documentation
+    - type: chore
+      name: Chores
