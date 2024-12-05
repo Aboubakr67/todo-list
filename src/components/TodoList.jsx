@@ -15,6 +15,7 @@ function writeToLocaleStorage(todos) {
 function TodoList() {
   const [todos, setTodos] = useState(readFromLocaleStorage());
   const [inputValue, setInputValue] = useState("");
+  const [filter, setFilter] = useState('All');
 
   useEffect(() => writeToLocaleStorage(todos), [todos]);
 
@@ -44,6 +45,13 @@ function TodoList() {
   return (
     <div className="todo-list">
       <h3 className="todo-list-empty">Nombre de tache(s) : {todos.length}</h3>
+
+      <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+        <option value="All">All</option>
+        <option value="Active">Active</option>
+        <option value="Complete">Complete</option>
+      </select>
+
       <form className="todo-list-form" onSubmit={handleSubmit}>
         <input
           className="todo-list-input"
