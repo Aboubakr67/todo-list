@@ -56,6 +56,13 @@ function TodoList() {
     setTodos(todosWithoutComplete);
     localStorage.setItem("todos", JSON.stringify(todosWithoutComplete));
   };
+  const onChangeNameTodo = (value, id) => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, text: value } : todo
+    );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  };
 
   return (
     <div className="todo-list">
@@ -66,7 +73,6 @@ function TodoList() {
         <option value="Active">Active</option>
         <option value="Complete">Complete</option>
       </select>
-      
 
       <button onClick={clearComplete}>Clear Completed</button>
 
@@ -94,6 +100,7 @@ function TodoList() {
               todo={todo}
               onToggle={toggleTodo}
               onDelete={deleteTodo}
+              onChangeNameTodo={onChangeNameTodo}
             />
           ))
         )}
